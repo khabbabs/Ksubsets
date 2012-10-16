@@ -49,7 +49,7 @@ public class ProcessSubSet<E> {
 	int idx=k;
 	int hasnext=k+1;
 	private void processLargerSubSet(E[] mainSet, E[]combination,int subSetSize, int nextIndex){
-		if(idx<k+10){
+		if(idx<k+2){
 			idx++;
 			if(subSetSize == combination.length){
 				processSet(combination);
@@ -60,7 +60,7 @@ public class ProcessSubSet<E> {
 					combination[subSetSize] = mainSet[i];
 					processLargerSubSet(mainSet,combination,subSetSize+1,i+1);
 				}
-			}
+			}	
 		}
 
 		/*	
@@ -71,7 +71,7 @@ public class ProcessSubSet<E> {
 		//return subSet;
 	}
 	public static void main(String[] args) {
-		ProcessSubSet<String> subSet = new ProcessSubSet<String>(new TreeSet<String>(Arrays.asList(args)),3);
+		ProcessSubSet<String> subSet = new ProcessSubSet<String>(new TreeSet<String>(Arrays.asList(args)),7);
 
 	}
 

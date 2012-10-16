@@ -6,43 +6,83 @@ import java.util.*;   // (Collections framework)
 
 public class SizeKSubsetIterator<E> implements Iterator<Set<E>> { 
 
-	private SizeKSubset<E> theSet;
+	private E[] mainSet;
+	private int[] combinations;
+	private int index;
 	private int k;
-	// TODO: add additional private variables to keep track of 
-	// where you are in the iteration of all subsets.
+	private int n;
+	private int i;
+	private boolean hasNext = true;
+
 
 	/** Construct a new iterator for "theSet", a SizeKSubset.
 	 */
 	public SizeKSubsetIterator ( SizeKSubset<E> theSet ) {
-		//System.out.println("K= "+theSet.backingSet);
-		this.theSet = theSet;
+
+		this.mainSet = (E[])theSet.backingSet.toArray();
 		this.k=theSet.k;
-		
+		this.n=theSet.backingSet.size();
+		combinations = new int[k];
+		if(k==0 || n==0){
+			hasNext=false;
+		}
+		else{
+
+			//helps produce the next correct combination
+			//
+
+			for(int j=0;j<k;j++){
+				combinations[j]= j;
+			}
+			combinations[k-1]--;
+		}
+
 	}
 
 	public boolean hasNext() {
-		return false;
+		return this.hasNext;
 		// Returns true if the iteration has more elements.
 		// TODO: implement this.
 	}
 
 	public Set<E> next() {
-		return null;
-		// Returns the next element in the iteration.
-		// This will always be a size-k subset of the Set<E>
-		// that is backing theSet.
-		// TODO: implement this.
-	}
-/*	
-	private SizeKSubset<E> generateSubSet(SizeKSubset<E> set, int k){
-		if(set.size()==k){
-			return set;
+		index = k-1;
+
+		if(combinations[k-1]<n-1){
+			combinations[k-1]++;
 		}
-		return null;
+		else
+		{
+			i=1;
+			if(hasNext==true){
+				while(combinations[index]== n-i++){
+
+					index--;
+
+
+				}
+			}
+
+
+			for(i=combinations[index]+1;index<k;i++){
+				combinations[index++]=i;
+			}
+
+			if(combinations[0]==n-k){
+				hasNext=false;
+			}
+
+		}
+		TreeSet<E> newSet = new TreeSet<E>();
+		for(i=0;i<combinations.length;i++){
+
+			newSet.add(mainSet[combinations[i]]);
+			
+		}
+
+		return newSet;
 	}
-	*/
-	
-	
+
 	/*
 	 *remove is not part of the specification. do not use.
 	 */

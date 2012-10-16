@@ -3,6 +3,7 @@
 
 // TODO: place in suitable package.
 package edu.unm.cs.cs361;
+import java.math.BigInteger;
 import java.util.*;     // (Collections framework)
 
 /** A non-mutable set class.
@@ -25,7 +26,7 @@ public class SizeKSubset<E> extends AbstractSet<Set<E>> {
 	}
 
 	public int size( ) {
-		return backingSet.size();
+		return ((int)(choose(this.backingSet.size(),this.k)));
 		// TODO: return the correct size.
 	}
 
@@ -33,14 +34,37 @@ public class SizeKSubset<E> extends AbstractSet<Set<E>> {
 		this.backingSet = backingSet;
 		this.k = k;
 	}
+	
+/*
+ * choose(n,k) = n! / (n-k)! K!
+ * 
+ * 
+ * 	
+ */
+	public static double choose(int x, int y) {
+	    if (y < 0 || y > x) return 0;
+	    if (y > x/2) {
+	        // choose(n,k) == choose(n,n-k), 
+	        // so this could save a little effort
+	        y = x - y;
+	    }
+
+	    double denominator = 1.0, numerator = 1.0;
+	    for (int i = 1; i <= y; i++) {
+	        denominator *= i;
+	        numerator *= (x + 1 - i);
+	    }
+	    return numerator / denominator;
+	}
+
+
 
 	public static void main ( String[ ] args ) {
 		// TODO: add your own tests.
-		System.out.println(Arrays.asList(args));
-		SizeKSubset<String> s = new SizeKSubset<String>( new TreeSet<String>( Arrays.asList( args ) ), 3 ) ;
+		//System.out.println(Arrays.asList(args));
+		SizeKSubset<String> s = new SizeKSubset<String>( new TreeSet<String>( Arrays.asList( args ) ), 1 ) ;
 		for ( Set<String> x : s ) {
-			System.out.println( x );
-			x.iterator().next();
+			System.out.println(x);
 		}
 	}
 
