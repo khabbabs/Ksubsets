@@ -17,7 +17,7 @@ public class SizeKSubsetIterator<E> implements Iterator<Set<E>> {
 		//System.out.println("K= "+theSet.backingSet);
 		this.theSet = theSet;
 		this.k=theSet.k;
-		processSubSet((Set<E>) theSet,k);
+		
 	}
 
 	public boolean hasNext() {
@@ -42,26 +42,7 @@ public class SizeKSubsetIterator<E> implements Iterator<Set<E>> {
 	}
 	*/
 	
-	private void process(E[] set){
-		System.out.println(set);
-	}
-	private void processSubSet(Set<E> set, int k){
-		E subSet[] = (E[]) new Object[k];
-		processLargerSubSet((E[]) set.toArray(),subSet,0,0);
-		
-	}
-	private void processLargerSubSet(E[] set, E[] subSet,int subSetSize, int nextIndex){
-		if(subSet.length == subSetSize){
-			process(subSet);
-			return;
-		}
-		else{
-			for(int j=nextIndex;j<set.length;j++){
-			processLargerSubSet(set,subSet,++subSetSize,++nextIndex);	
-			}
-		
-		}			
-	}
+	
 	/*
 	 *remove is not part of the specification. do not use.
 	 */

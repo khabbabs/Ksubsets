@@ -14,7 +14,7 @@ public class ProcessSubSetArray {
 	}
 	static void processLargerSubsets(int[] set, int[] subset, int subsetSize, int nextIndex) {
 		if (subsetSize == subset.length) {
-			System.out.println("subsetSize == subset.length");
+			//System.out.println("subsetSize == subset.length");
 			process(subset);
 		} else {
 			for (int j = nextIndex; j < set.length; j++) {
