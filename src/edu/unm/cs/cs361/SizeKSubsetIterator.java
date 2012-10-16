@@ -16,6 +16,14 @@ public class SizeKSubsetIterator<E> implements Iterator<Set<E>> {
 
 
 	/** Construct a new iterator for "theSet", a SizeKSubset.
+	 * 
+	 * initialize the backingSet has a generic array which includes all 
+	 * the members of the backing set.
+	 * 
+	 * sets up a combinations array which is the size of k.
+	 * 
+	 * @author khabbab Saleem
+	 * khabbabs@unm.edu
 	 */
 	public SizeKSubsetIterator ( SizeKSubset<E> theSet ) {
 
@@ -29,7 +37,6 @@ public class SizeKSubsetIterator<E> implements Iterator<Set<E>> {
 		else{
 
 			//helps produce the next correct combination
-			//
 
 			for(int j=0;j<k;j++){
 				combinations[j]= j;
@@ -41,9 +48,18 @@ public class SizeKSubsetIterator<E> implements Iterator<Set<E>> {
 
 	public boolean hasNext() {
 		return this.hasNext;
-		// Returns true if the iteration has more elements.
-		// TODO: implement this.
 	}
+	
+	/*
+	 * the next method mostly is working with the combinations array.
+	 * based on if theres any other combinatios left (hasNext). it keeps
+	 * building on the array. at the end, takes the elements of the combinations
+	 * array, and matches the ones from the backing array, building a subset each time.
+	 * 
+	 * 
+	 * (non-Javadoc)
+	 * @see java.util.Iterator#next()
+	 */
 
 	public Set<E> next() {
 		index = k-1;
@@ -58,8 +74,6 @@ public class SizeKSubsetIterator<E> implements Iterator<Set<E>> {
 				while(combinations[index]== n-i++){
 
 					index--;
-
-
 				}
 			}
 
@@ -67,17 +81,15 @@ public class SizeKSubsetIterator<E> implements Iterator<Set<E>> {
 			for(i=combinations[index]+1;index<k;i++){
 				combinations[index++]=i;
 			}
-
-			if(combinations[0]==n-k){
-				hasNext=false;
-			}
-
+		}
+		if(combinations[0]==n-k){
+			hasNext=false;
 		}
 		TreeSet<E> newSet = new TreeSet<E>();
 		for(i=0;i<combinations.length;i++){
 
 			newSet.add(mainSet[combinations[i]]);
-			
+
 		}
 
 		return newSet;
@@ -88,7 +100,6 @@ public class SizeKSubsetIterator<E> implements Iterator<Set<E>> {
 	 */
 	@Override
 	public void remove() {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException();	
 	} 
 }

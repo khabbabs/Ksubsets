@@ -9,27 +9,29 @@ import java.util.*;     // (Collections framework)
 /** A non-mutable set class.
  * Each instance is defined by a backing set, and a size, k.
  * It contains all k-element subsets of the backing set.
+ * original interface by Tom Hayes.
+ * @author khabbab Saleem
  */
 public class SizeKSubset<E> extends AbstractSet<Set<E>> {
 
-	// The AbstractSet class provides defaults for all
-	// methods of the Set interface.  We only need to 
-	// supply the size and iterator methods.
+	
 
 	Set<E> backingSet;  
-	// We will assume that backingSet is unchanging, at least
-	// for the lifetime of our SizeKSubset object.
 	int k;
 
 	public Iterator<Set<E>> iterator() {
 		return new SizeKSubsetIterator<E>(this);
 	}
-
+/*
+ * 
+ * Calls the choose method that takes the size k, and returns max size based on 
+ * the max number of elements and k.
+ * (non-Javadoc)
+ * @see java.util.AbstractCollection#size()
+ */
 	public int size( ) {
 		return ((int)(choose(this.backingSet.size(),this.k)));
-		// TODO: return the correct size.
 	}
-
 	public SizeKSubset ( Set<E> backingSet, int k ) {
 		this.backingSet = backingSet;
 		this.k = k;
@@ -48,7 +50,6 @@ public class SizeKSubset<E> extends AbstractSet<Set<E>> {
 	        // so this could save a little effort
 	        y = x - y;
 	    }
-
 	    double denominator = 1.0, numerator = 1.0;
 	    for (int i = 1; i <= y; i++) {
 	        denominator *= i;
@@ -58,12 +59,28 @@ public class SizeKSubset<E> extends AbstractSet<Set<E>> {
 	}
 
 
-
+/*
+ * Main
+ * by khabbab Saleem
+ */
 	public static void main ( String[ ] args ) {
-		// TODO: add your own tests.
-		//System.out.println(Arrays.asList(args));
-		SizeKSubset<String> s = new SizeKSubset<String>( new TreeSet<String>( Arrays.asList( args ) ), 1 ) ;
-		for ( Set<String> x : s ) {
+				
+		//test for the lowest
+		runTests(1,args);
+		// mid range
+		runTests(3,args);
+		// high k range
+		runTests(7,args);
+
+	}
+	/*
+	 * same has the old main but specified k, and size testing.
+	 */
+	private static void runTests(int size,String[] args){
+		
+		SizeKSubset<String> temp = new SizeKSubset<String>(new TreeSet<String>(Arrays.asList(args)),size);
+		System.out.println("Running Test K = "+temp.k+" Set Size : "+temp.size());
+		for ( Set<String> x : temp ) {
 			System.out.println(x);
 		}
 	}
